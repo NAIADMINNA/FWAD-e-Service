@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none" role="img" aria-labelledby="title">
+<title id="title">ระบบเบิกและจัดการพัสดุ</title>
+<defs>
+<linearGradient id="box" x1="84" y1="96" x2="193" y2="182" gradientUnits="userSpaceOnUse"><stop stop-color="#FFDC9A"/><stop offset="1" stop-color="#DD8A25"/></linearGradient>
+<linearGradient id="clip" x1="205" y1="57" x2="265" y2="177" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFDF9"/><stop offset="1" stop-color="#FFE6C6"/></linearGradient>
+<filter id="s" x="0" y="0" width="320" height="220"><feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#9B5618" flood-opacity=".20"/></filter>
+</defs>
+<ellipse cx="159" cy="204" rx="109" ry="9" fill="#BB771D" opacity=".12"/>
+<g filter="url(#s)">
+<rect x="194" y="43" width="70" height="132" rx="9" fill="#C8772A"/>
+<rect x="200" y="47" width="64" height="124" rx="7" fill="url(#clip)" stroke="#D39C58" stroke-width="3"/>
+<rect x="218" y="37" width="30" height="17" rx="6" fill="#354A67"/>
+<rect x="225" y="40" width="16" height="8" rx="3" fill="#A4B2C4"/>
+<path d="m213 77 6 5 9-11m-15 36 6 5 9-11m-15 36 6 5 9-11" stroke="#F29A27" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M236 78h17m-17 29h17m-17 30h17" stroke="#DFB37B" stroke-width="4" stroke-linecap="round"/>
+<path d="M80 100 132 80l60 20-57 21-55-21Z" fill="#FFE0AA" stroke="#C97D29" stroke-width="3" stroke-linejoin="round"/>
+<path d="M80 100v72l55 24v-75L80 100Z" fill="url(#box)" stroke="#C97D29" stroke-width="3"/>
+<path d="M135 121v75l57-24v-72l-57 21Z" fill="#E6A049" stroke="#B97525" stroke-width="3"/>
+<path d="m103 91 59 21v20l-16-6v-19L88 97" fill="#FFF3D7" opacity=".92"/>
+<path d="M153 166v13l24-10v-13" stroke="#C6802B" stroke-width="4" stroke-linejoin="round"/>
+<path d="M47 114v72c0 8 6 14 14 14h117" stroke="#456281" stroke-width="8" stroke-linecap="round"/>
+<circle cx="83" cy="202" r="10" fill="#375574" stroke="#BACADD" stroke-width="4"/>
+<circle cx="166" cy="202" r="10" fill="#375574" stroke="#BACADD" stroke-width="4"/>
+<rect x="43" y="104" width="24" height="10" rx="4" fill="#476887"/>
+</g>
+</svg>

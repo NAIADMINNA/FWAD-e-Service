@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none" role="img" aria-labelledby="title">
+<title id="title">คลังเอกสารอิเล็กทรอนิกส์</title>
+<defs>
+<linearGradient id="roof" x1="63" y1="74" x2="231" y2="142" gradientUnits="userSpaceOnUse"><stop stop-color="#A1F7E9"/><stop offset="1" stop-color="#139D91"/></linearGradient>
+<linearGradient id="wall" x1="85" y1="90" x2="225" y2="190" gradientUnits="userSpaceOnUse"><stop stop-color="#E6FFFB"/><stop offset="1" stop-color="#80D9C5"/></linearGradient>
+<linearGradient id="dark" x1="128" y1="106" x2="190" y2="185" gradientUnits="userSpaceOnUse"><stop stop-color="#0E8879"/><stop offset="1" stop-color="#086459"/></linearGradient>
+<filter id="s" x="0" y="0" width="320" height="220"><feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#057568" flood-opacity=".18"/></filter>
+</defs>
+<ellipse cx="160" cy="198" rx="112" ry="10" fill="#0A8E78" opacity=".12"/>
+<g filter="url(#s)">
+<path d="M65 104 154 48a13 13 0 0 1 13 0l88 56-13 22-81-49-82 50-14-23Z" fill="url(#roof)" stroke="#087D76" stroke-width="4" stroke-linejoin="round"/>
+<path d="M87 111 161 66l73 45v80H87v-80Z" fill="url(#wall)" stroke="#33AC9C" stroke-width="4"/>
+<rect x="118" y="113" width="86" height="79" rx="5" fill="url(#dark)" stroke="#16A595" stroke-width="4"/>
+<path d="M120 142h83M120 165h83" stroke="#89DFCE" stroke-width="3"/>
+<rect x="127" y="121" width="31" height="15" rx="2" fill="#BFE8DB"/><rect x="163" y="121" width="32" height="15" rx="2" fill="#A8E1D2"/>
+<rect x="127" y="145" width="31" height="14" rx="2" fill="#95DCCB"/><rect x="163" y="145" width="32" height="14" rx="2" fill="#D7F5EC"/>
+<rect x="127" y="170" width="31" height="15" rx="2" fill="#CCF1E6"/><rect x="163" y="170" width="32" height="15" rx="2" fill="#83CBBB"/>
+<path d="M138 126h10m25 0h11m-46 25h10m25 0h11m-46 25h10m25 0h11" stroke="#368D7E" stroke-width="2" stroke-linecap="round"/>
+<path d="M109 104h105" stroke="#C7FFF7" stroke-width="6" stroke-linecap="round"/>
+<rect x="227" y="73" width="47" height="64" rx="6" fill="#F7FFFE" stroke="#25A998" stroke-width="4"/>
+<path d="M239 89h20m-20 11h24m-24 11h17" stroke="#45B2A6" stroke-width="4" stroke-linecap="round"/>
+<rect x="49" y="146" width="65" height="45" rx="7" fill="#09A28E" stroke="#B3FFF0" stroke-width="3"/>
+<path d="M57 157h49m-40 9v15m7-15v15m6-15v15m9-15v15m8-15v15" stroke="#D9FFF9" stroke-width="3"/>
+</g>
+</svg>
