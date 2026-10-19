@@ -1,186 +1,109 @@
 <!doctype html>
 <html lang="th">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0b3766">
-  <meta name="description" content="ศูนย์รวมระบบบริการดิจิทัล สำนักบริหารแรงงานต่างด้าว กรมการจัดหางาน — ระบบกองทุน คลังเอกสาร และเบิกพัสดุ">
-  <title>Digital Service Dashboard | สำนักบริหารแรงงานต่างด้าว</title>
-  <link rel="icon" href="assets/department-emblem.png" type="image/png">
-  <link rel="preload" as="image" href="assets/campus-background.jpg">
-  <style>
-    /* ---------------------------------------------------------
-       FWAD Digital Service Dashboard
-       Single-page HTML/CSS, no frameworks or JavaScript required.
-       Change service URLs in the three <a class="service-card"> tags.
-       Replace the hero background at assets/campus-background.jpg.
-       --------------------------------------------------------- */
-    :root{
-      color-scheme:light;
-      font-family:'Noto Sans Thai','Leelawadee UI',Tahoma,'Segoe UI',sans-serif;
-      --ink:#09254c;--muted:#435b78;--navy:#0a2b54;--gold:#d6a13e;
-      font-synthesis:none;
-      -webkit-font-smoothing:antialiased;
-    }
-    *,*::before,*::after{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;min-width:320px;min-height:100vh;color:var(--ink);background:#dbedfa}
-    body::before{
-      content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
-      background-image:
-        linear-gradient(180deg,rgba(238,247,255,.46) 0%,rgba(239,248,255,.12) 32%,rgba(229,243,253,.23) 62%,rgba(221,236,249,.58) 100%),
-        url('assets/campus-background.jpg');
-      background-position:center,center center;background-size:cover;background-repeat:no-repeat;
-    }
-    body::after{
-      content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-      background:radial-gradient(ellipse 48% 27% at 50% 23%,rgba(252,254,255,.70),transparent 94%);
-    }
-    a{text-decoration:none;color:inherit}
-    .skip{position:absolute;z-index:30;top:-70px;left:14px;background:white;color:#063b79;padding:12px 20px;border-radius:8px}
-    .skip:focus{top:12px}
-    .page{width:100%;max-width:1650px;min-height:100vh;min-height:100svh;margin:auto;padding:clamp(17px,2vw,31px) clamp(18px,3.9vw,64px) clamp(16px,2vw,26px);display:flex;flex-direction:column}
-    .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:22px}
-    .identity{display:flex;align-items:center;gap:16px;min-width:0}
-    .identity img{display:block;width:clamp(62px,5.7vw,84px);height:clamp(62px,5.7vw,84px);object-fit:contain;filter:drop-shadow(0 5px 8px #254f7725)}
-    .identity-name{font-size:clamp(19px,1.8vw,28px);font-weight:800;line-height:1.3;letter-spacing:-.035em;white-space:nowrap}
-    .identity-sub{margin-top:3px;color:#254464;font-weight:650;font-size:clamp(12px,1vw,15px);line-height:1.35}
-    .identity-en{margin-top:3px;letter-spacing:.10em;color:#4f6d8b;font-size:10px;font-weight:750}
-    .top-tag{text-align:right;margin-top:5px;color:#123968;font-size:11px;letter-spacing:.24em;line-height:1.7;font-weight:800;white-space:nowrap}
-    .top-tag small{display:block;font-size:10px;font-weight:650;letter-spacing:.18em}
-    .top-tag i{display:block;margin:10px 0 0 auto;width:47px;height:3px;border-radius:8px;background:linear-gradient(90deg,#e1b351,#bc8324)}
-    .hero{text-align:center;margin:clamp(8px,1.8vh,19px) auto 0;max-width:1120px;position:relative}
-    .eyebrow{display:inline-flex;align-items:center;gap:9px;background:#fffffff2;border:1px solid #ffffffcf;box-shadow:0 5px 22px #2f74b516;border-radius:50px;padding:7px 17px;color:#2b648a;letter-spacing:.17em;font-size:10px;font-weight:800}
-    .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:#17af9a;box-shadow:0 0 0 4px #16a9901c}
-    h1{font-family:'Segoe UI','Arial',sans-serif;margin:13px 0 2px;line-height:1.02;letter-spacing:-.06em;font-size:clamp(43px,4.25vw,71px);font-weight:850;text-shadow:0 3px 22px rgba(251,255,255,.88)}
-    h1 span{display:block}
-    h1 .accent{background:linear-gradient(105deg,#075bbf 10%,#0879ea 50%,#074ba5 90%);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 3px 1px #fff6)}
-    .hero-line{width:68px;height:4px;border-radius:8px;background:linear-gradient(90deg,#d8a44e,#f0c77c);margin:12px auto 12px}
-    .hero-title{font-size:clamp(15px,1.55vw,22px);font-weight:800;line-height:1.5;letter-spacing:-.025em;margin:0;color:#0b305d;text-shadow:0 2px 9px #ffffffed}
-    .hero-detail{margin:2px 0 0;font-size:clamp(12px,1.1vw,15px);font-weight:560;color:#365677;text-shadow:0 2px 8px #fff}
-    .services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(17px,1.7vw,28px);width:min(100%,1310px);margin:clamp(15px,2.2vh,25px) auto 0}
-    .service-card{--tone:#1766cb;--tone-dark:#0b4dba;--pale:#e6f2ff;position:relative;isolation:isolate;min-width:0;min-height:clamp(365px,43vh,421px);overflow:hidden;padding:20px clamp(18px,2vw,30px) 19px;display:flex;flex-direction:column;align-items:center;background:linear-gradient(152deg,rgba(255,255,255,.92),rgba(247,251,255,.83) 58%,rgba(232,244,255,.89));border:1.5px solid rgba(255,255,255,.95);border-radius:25px;box-shadow:0 15px 37px #143c7337,0 0 0 1px #9fc1e51f inset;backdrop-filter:blur(18px) saturate(130%);-webkit-backdrop-filter:blur(18px) saturate(130%);outline-offset:5px;transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}
-    .service-card.green{--tone:#008e7e;--tone-dark:#047a6e;--pale:#e1f9f1;background:linear-gradient(154deg,rgba(251,255,254,.94),rgba(239,253,249,.85) 58%,rgba(209,247,236,.89))}
-    .service-card.orange{--tone:#e97912;--tone-dark:#bd540a;--pale:#fff0df;background:linear-gradient(154deg,rgba(255,253,250,.94),rgba(255,249,242,.87) 58%,rgba(255,232,201,.9))}
-    .service-card:before{content:"";position:absolute;inset:auto -45px -108px;z-index:-1;height:190px;border-radius:45% 58% 0 0;background:linear-gradient(120deg,color-mix(in srgb,var(--tone) 23%,white),color-mix(in srgb,var(--tone) 7%,white) 63%,transparent);transform:rotate(-4deg)}
-    .service-card:after{content:"";position:absolute;inset:auto -15px -85px;z-index:-1;height:115px;border-radius:56% 50% 0 0;background:linear-gradient(90deg,color-mix(in srgb,var(--tone) 14%,white),color-mix(in srgb,var(--tone) 3%,white));transform:rotate(5deg)}
-    .card-top{display:flex;align-items:center;justify-content:space-between;align-self:stretch;width:100%}
-    .index{font-family:'Segoe UI',Arial,sans-serif;color:var(--tone);font-size:27px;font-weight:850;letter-spacing:-.035em}
-    .arrow-circle{display:grid;place-items:center;flex:0 0 auto;width:38px;height:38px;background:#ffffffed;border:1px solid #e6edf5;border-radius:50%;color:var(--tone);box-shadow:0 4px 11px #10406e18}
-    .arrow-circle svg{width:19px;height:19px}
-    .illustration{display:block;object-fit:contain;width:min(100%,265px);height:clamp(120px,15.3vh,159px);margin:1px auto 6px;filter:drop-shadow(0 8px 11px #294f7720)}
-    .service-card h2{font-size:clamp(18px,1.64vw,24px);font-weight:850;letter-spacing:-.03em;line-height:1.36;color:var(--tone-dark);margin:0;min-height:2.72em;text-align:center;display:grid;place-items:center;text-wrap:balance}
-    .underline{display:block;width:49px;height:3px;background:var(--tone);border-radius:10px;margin:10px auto 9px}
-    .service-card p{margin:0 auto 13px;max-width:305px;text-align:center;color:#405774;font-size:clamp(12px,.92vw,14px);font-weight:510;line-height:1.58;text-wrap:pretty}
-    .cta{margin-top:auto;display:flex;width:min(100%,295px);min-height:44px;align-items:center;justify-content:center;gap:13px;border-radius:100px;background:linear-gradient(110deg,var(--tone),var(--tone-dark));color:#fff;font-size:15px;font-weight:800;box-shadow:0 7px 19px color-mix(in srgb,var(--tone) 30%,transparent);transition:filter .2s ease}
-    .cta svg{width:18px;height:18px}
-    .service-card:hover,.service-card:focus-visible{transform:translateY(-7px);box-shadow:0 22px 47px #11396345,0 0 0 1px #ffffffa6 inset;border-color:color-mix(in srgb,var(--tone) 34%,white)}
-    .service-card:hover .cta,.service-card:focus-visible .cta{filter:brightness(1.08)}
-    .service-card:focus-visible{outline:3px solid var(--tone)}
-    .footer{margin-top:auto;padding-top:clamp(18px,2.5vh,28px)}
-    .footer-bar{width:min(100%,1395px);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center;padding:17px clamp(18px,2.2vw,34px);border-radius:18px;background:linear-gradient(110deg,rgba(10,42,81,.96),rgba(10,50,92,.96));color:#fff;box-shadow:0 11px 29px #0d356643}
-    .footer-item{display:flex;align-items:center;gap:14px;font-size:clamp(11px,.9vw,13px);font-weight:620;line-height:1.6}
-    .footer-item svg{width:25px;height:25px;flex-shrink:0;stroke:#dbeeff}
-    .footer-item.mail{border-left:1px solid #adc8e96a;padding-left:clamp(18px,4vw,56px)}
-    .footer-item a{color:#a3ddff;text-decoration:underline;text-underline-offset:3px}
-    .copyright{text-align:center;font-size:10px;line-height:1.5;color:#284a6a;background:#ffffff87;max-width:max-content;padding:4px 14px;border-radius:20px;margin:10px auto 0}
-    /* Short widescreen monitors: keep the entire dashboard comfortably in view. */
-    @media(min-width:1091px) and (max-height:940px){
-      .page{padding-top:17px;padding-bottom:11px}
-      .hero{margin-top:8px}
-      h1{font-size:clamp(41px,4vw,65px);margin-top:8px}
-      .hero-line{margin-top:9px;margin-bottom:9px}
-      .services{margin-top:14px}
-      .service-card{min-height:356px;padding-top:15px;padding-bottom:15px}
-      .illustration{height:clamp(113px,13.2vh,137px);margin-bottom:2px}
-      .underline{margin-top:7px;margin-bottom:7px}
-      .service-card p{margin-bottom:9px}
-      .footer{padding-top:15px}
-      .footer-bar{padding-top:13px;padding-bottom:13px}
-      .copyright{margin-top:7px}
-    }
-    @media(min-width:1650px){.page{padding-top:37px;padding-bottom:28px}.services{margin-top:26px}.service-card{min-height:435px}.illustration{height:158px}}
-    @media(max-width:1090px){.page{padding:23px 25px}.identity-en{display:none}.top-tag{font-size:9px}.services{gap:14px}.service-card{padding:19px 15px;min-height:384px}.service-card h2{font-size:19px}.illustration{height:132px}.service-card p{font-size:12px}.cta{font-size:14px}.footer-item{font-size:11px}}
-    @media(max-width:820px){.page{max-width:750px;padding:22px 18px 28px}.identity-name{white-space:normal}.top-tag{display:none}.hero{margin-top:24px}.services{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:23px;gap:18px}.service-card{min-height:387px}.services>.service-card:last-child{grid-column:1 / -1;max-width:calc(50% - 9px);width:100%;justify-self:center}.footer{padding-top:25px}}
-    @media(max-width:600px){body::before{background-position:center,36% top}.page{padding:19px 16px 22px}.identity{gap:11px}.identity img{width:56px;height:56px}.identity-name{font-size:16px}.identity-sub{font-size:11px}.hero{margin-top:28px}.eyebrow{font-size:8px;letter-spacing:.12em;padding:7px 11px}h1{font-size:clamp(38px,11.5vw,55px);margin-top:13px}.hero-line{margin:12px auto 11px}.hero-title{font-size:17px}.hero-detail{font-size:12px;line-height:1.6}.services{grid-template-columns:1fr;max-width:440px;gap:17px;margin-top:25px}.services>.service-card:last-child{grid-column:auto;max-width:none}.service-card{min-height:382px;padding:19px 23px 19px}.illustration{height:139px;margin-top:-2px}.service-card h2{font-size:21px}.service-card p{font-size:13px}.footer-bar{grid-template-columns:1fr;gap:12px;padding:17px 20px}.footer-item.mail{border-left:0;border-top:1px solid #adc8e96a;padding:14px 0 0}.copyright{max-width:320px;font-size:9px}}
-    @media(max-width:380px){.identity-sub{font-size:10px}.identity-name{font-size:15px}.illustration{height:125px}.service-card{min-height:373px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.service-card,.cta{transition:none}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#dfeefa">
+<meta name="description" content="ศูนย์รวมระบบบริการดิจิทัล สำนักบริหารแรงงานต่างด้าว กรมการจัดหางาน">
+<title>Digital Service Dashboard | สำนักบริหารแรงงานต่างด้าว</title>
+<link rel="icon" href="assets/department-emblem.png" type="image/png">
+<link rel="preload" as="image" href="assets/campus-background.jpg">
+<style>
+:root{font-family:'Noto Sans Thai','Leelawadee UI',Tahoma,'Segoe UI',sans-serif;color:#0c2850;font-synthesis:none;-webkit-font-smoothing:antialiased}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-width:320px;min-height:100vh;min-height:100svh;background:#d6ebfa}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background-image:linear-gradient(180deg,rgba(237,247,255,.28),rgba(237,246,255,.07) 36%,rgba(235,248,255,.12) 65%,rgba(227,241,251,.32)),url('assets/campus-background.jpg');background-size:cover;background-position:center;pointer-events:none}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 25%,rgba(255,255,255,.75) 0%,rgba(255,255,255,.52) 26%,transparent 61%);pointer-events:none}
+a{color:inherit;text-decoration:none}
+.page{min-height:100vh;min-height:100svh;width:100%;max-width:1650px;margin:auto;display:flex;flex-direction:column;padding:clamp(18px,2vw,28px) clamp(20px,4vw,70px) 17px}
+.skip{position:absolute;top:-80px;left:15px;z-index:20;background:#fff;padding:11px 18px;border-radius:10px}.skip:focus{top:10px}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.identity{display:flex;align-items:center;gap:15px}
+.identity img{width:clamp(61px,6vw,85px);height:clamp(61px,6vw,85px);object-fit:contain;filter:drop-shadow(0 6px 9px #16416b20)}
+.identity h2{font-size:clamp(18px,1.8vw,26px);line-height:1.25;letter-spacing:-.045em;margin:0;font-weight:850}
+.identity .thai-sub{font-size:clamp(11px,1.05vw,15px);font-weight:600;color:#274a6b;margin-top:2px}
+.identity .eng{font-family:Arial,sans-serif;color:#4b6889;letter-spacing:.1em;font-size:10px;font-weight:700;margin-top:4px}
+.top-note{text-align:right;font-family:Arial,sans-serif;font-size:11px;font-weight:750;letter-spacing:.24em;line-height:1.7;color:#21456f;margin-top:5px}
+.top-note small{font-size:10px;font-weight:600;letter-spacing:.15em;display:block}.top-note:after{content:"";display:block;width:47px;height:3px;border-radius:3px;background:#d5a24b;margin:9px 0 0 auto}
+.hero{text-align:center;margin:clamp(13px,3.1vh,30px) auto 0;padding:0 10px;max-width:1100px;text-shadow:0 2px 14px #ffffffee}
+.hero h1{font-family:'Segoe UI',Arial,sans-serif;font-size:clamp(42px,5.05vw,76px);line-height:1.03;letter-spacing:-.058em;margin:0;font-weight:800;color:#082652}
+.hero h1 span{display:block;text-shadow:none;background:linear-gradient(110deg,#0655bb,#0876ec 49%,#074cad);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero .divider{height:4px;width:67px;border-radius:10px;background:#d8a13d;margin:14px auto 12px}
+.hero .subtitle{font-size:clamp(17px,1.65vw,23px);font-weight:800;letter-spacing:-.035em;margin:0}
+.hero .summary{font-size:clamp(11px,1.05vw,14px);color:#385b78;font-weight:600;margin:3px 0 0}
+.services{width:min(100%,1330px);margin:clamp(22px,3.5vh,38px) auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(17px,1.6vw,26px);align-items:stretch}
+.service-card{--tone:#0c65c7;--tone-deep:#073a8c;--panel-light:#e5f3ff;--wave-a:#aad9ff;--wave-b:#67b7fa;--wave-c:#248cf0;--wave-d:#0273dc;position:relative;isolation:isolate;min-width:0;display:flex;flex-direction:column;overflow:hidden;padding:15px clamp(19px,2.1vw,30px) 93px;min-height:clamp(417px,50vh,488px);border-radius:25px;background:linear-gradient(156deg,rgba(255,255,255,.95) 0%,rgba(242,249,255,.91) 65%,rgba(228,244,255,.93) 100%);border:1px solid rgba(255,255,255,.96);box-shadow:0 17px 31px #0e46733f,0 2px 10px #1f66821c,inset 0 1px 4px #fff;outline-offset:4px;backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%);transition:transform .25s,box-shadow .25s}
+.service-card.green{--tone:#068e8d;--tone-deep:#055b5d;--panel-light:#e5fbf3;--wave-a:#acf0de;--wave-b:#61d8c7;--wave-c:#12b3ac;--wave-d:#078e89;background:linear-gradient(155deg,rgba(255,255,255,.96),rgba(241,255,251,.92) 66%,rgba(225,251,245,.93))}
+.service-card.orange{--tone:#e66e10;--tone-deep:#9c390d;--panel-light:#fff1e3;--wave-a:#ffe5c6;--wave-b:#ffc182;--wave-c:#ff9b4e;--wave-d:#ef7f29;background:linear-gradient(155deg,rgba(255,255,255,.96),rgba(255,249,242,.93) 65%,rgba(255,240,222,.93))}
+.service-card::before{content:"";position:absolute;z-index:-1;top:55px;left:5%;width:90%;height:240px;border-radius:100%;background:radial-gradient(ellipse at 50% 40%,color-mix(in srgb,var(--wave-a) 35%,white),transparent 72%);filter:blur(10px)}
+.card-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2;flex:0 0 41px}
+.card-number{font-family:'Segoe UI',Arial,sans-serif;font-size:31px;font-weight:780;letter-spacing:-.05em;color:var(--tone)}
+.arrow{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;color:var(--tone-deep);background:#ffffffef;border:1px solid #fff;box-shadow:0 4px 11px #215c8e29,0 1px 2px #215c8e18;transition:transform .25s,background .25s}
+.arrow svg{width:22px;height:22px}
+.art{height:clamp(151px,19.3vh,198px);width:100%;position:relative;display:grid;place-items:center;flex-shrink:0;margin:0 auto 7px;pointer-events:none}
+.art img{width:min(100%,350px);height:100%;min-height:0;max-height:100%;min-width:0;align-self:center;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 7px 5px #5c9dd00c)}
+.card-copy{position:relative;z-index:2;max-width:340px;align-self:stretch;margin:0 auto;width:100%}
+.card-copy h2{font-size:clamp(19px,1.58vw,25px);font-weight:850;letter-spacing:-.045em;line-height:1.32;color:var(--tone-deep);margin:0;text-wrap:balance}
+.rule{display:block;width:50px;height:3px;border-radius:8px;background:var(--tone);margin:10px 0 10px}
+.card-copy p{font-size:clamp(12.5px,1.03vw,15px);font-weight:550;line-height:1.55;color:#415675;margin:0;text-wrap:pretty}
+.wave{position:absolute;bottom:-1px;left:0;width:100%;height:clamp(78px,10.7vh,109px);z-index:1;pointer-events:none}
+.wave path:nth-child(1){fill:var(--wave-a);opacity:.35}
+.wave path:nth-child(2){fill:var(--wave-b);opacity:.52}
+.wave path:nth-child(3){fill:var(--wave-c);opacity:.64}
+.wave path:nth-child(4){fill:var(--wave-d);opacity:.56}
+.wave path:nth-child(5){fill:none;stroke:#fff;stroke-width:1.7;opacity:.75}
+.wave-icon{position:absolute;right:24px;bottom:25px;width:46px;height:46px;color:#ffffffcd;z-index:2;opacity:.82;pointer-events:none}
+.service-card:hover,.service-card:focus-visible{transform:translateY(-7px);box-shadow:0 28px 51px #0a437044,0 5px 10px #135c8525}
+.service-card:hover .arrow,.service-card:focus-visible .arrow{transform:translateX(3px);background:#fff}
+.service-card:focus-visible{outline:3px solid var(--tone)}
+.footer{margin-top:auto;padding-top:clamp(19px,2.6vh,31px)}
+.footer-panel{margin:0 auto;max-width:1390px;padding:17px 27px;min-height:67px;border-radius:19px;background:linear-gradient(113deg,#0b2c56,#103d6e 57%,#0b2f59);color:#e9f4ff;box-shadow:0 9px 24px #093c6b38;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px}
+.foot-group{display:flex;align-items:center;gap:13px;font-size:clamp(11px,.95vw,13px);line-height:1.45}
+.foot-group svg{width:24px;height:24px;flex-shrink:0;color:#dfedff}.foot-group strong{color:#fff}.foot-group.mail{padding-left:clamp(17px,4vw,52px);border-left:1px solid #a2bfd56b}
+.foot-group a{color:#a7dffc;text-decoration:underline;text-underline-offset:3px}.legal{text-align:center;color:#244769;text-shadow:0 1px 5px #fff;background:#eef8ffb5;border-radius:30px;width:fit-content;padding:4px 15px;margin:9px auto 0;font-size:10px}
+@media (min-width:1081px) and (max-height:860px){.page{padding-top:15px;padding-bottom:10px}.hero{margin-top:8px}.hero h1{font-size:clamp(42px,4.1vw,65px)}.hero .divider{margin:10px auto 8px}.services{margin-top:17px}.service-card{min-height:398px;padding-bottom:83px}.art{height:clamp(142px,17vh,167px)}.card-copy h2{font-size:clamp(18px,1.55vw,23px)}.card-copy p{font-size:12.7px}.wave{height:79px}.footer{padding-top:15px}.footer-panel{padding-top:11px;padding-bottom:11px;min-height:57px}}
+@media(max-width:1080px){.services{gap:15px}.service-card{padding-left:20px;padding-right:20px}.card-copy h2{font-size:20px}.card-copy p{font-size:12px}.art{height:171px}.wave{height:81px}}
+@media(max-width:810px){.page{max-width:760px;padding:20px 19px 23px}.top-note{display:none}.services{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}.service-card{min-height:434px}.services>.service-card:last-child{grid-column:1/-1;max-width:calc(50% - 9px);width:100%;justify-self:center}.card-copy h2{font-size:20px}.footer{padding-top:25px}}
+@media(max-width:600px){body::before{background-position:42% top}.page{padding:17px 15px 22px}.identity{gap:10px}.identity img{width:57px;height:57px}.identity h2{font-size:16px}.identity .thai-sub{font-size:11px}.identity .eng{display:none}.hero{margin-top:27px}.hero h1{font-size:clamp(39px,11vw,58px)}.hero .subtitle{font-size:16px;line-height:1.45}.hero .summary{font-size:11px;line-height:1.65}.services{grid-template-columns:1fr;max-width:440px;gap:18px;margin-top:24px}.services>.service-card:last-child{grid-column:auto;max-width:none}.service-card{min-height:418px;padding:15px 25px 87px}.card-number{font-size:29px}.art{height:173px;margin-bottom:4px}.card-copy h2{font-size:21px}.card-copy p{font-size:13px}.wave{height:85px}.footer-panel{display:grid;grid-template-columns:1fr;gap:11px;padding:16px 20px}.foot-group.mail{border:0;border-top:1px solid #a2bfd56b;padding:12px 0 0}.legal{max-width:350px;font-size:9px;line-height:1.5}}
+@media(max-width:360px){.card-copy h2{font-size:19px}.service-card{min-height:428px;padding-left:19px;padding-right:19px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.service-card,.arrow{transition:none}}
+</style>
 </head>
 <body>
-  <a class="skip" href="#services">ข้ามไปยังรายการระบบบริการ</a>
-  <div class="page">
-    <header class="topbar">
-      <div class="identity">
-        <img src="assets/department-emblem.png" alt="ตรากรมการจัดหางานตามภาพต้นแบบ" width="84" height="84">
-        <div>
-          <div class="identity-name">สำนักบริหารแรงงานต่างด้าว</div>
-          <div class="identity-sub">กรมการจัดหางาน · กระทรวงแรงงาน</div>
-          <div class="identity-en">DEPARTMENT OF EMPLOYMENT</div>
-        </div>
-      </div>
-      <div class="top-tag" aria-label="Digital government services">
-        DIGITAL GOVERNMENT SERVICES
-        <small>SMART · SECURE · CONNECTED</small>
-        <i aria-hidden="true"></i>
-      </div>
-    </header>
-
-    <main>
-      <section class="hero" aria-labelledby="headline">
-        <div class="eyebrow">FOREIGN WORKERS ADMINISTRATION OFFICE</div>
-        <h1 id="headline"><span>Digital Service</span><span class="accent">Dashboard</span></h1>
-        <div class="hero-line" aria-hidden="true"></div>
-        <p class="hero-title">ศูนย์รวมระบบบริการดิจิทัล สำนักบริหารแรงงานต่างด้าว</p>
-        <p class="hero-detail">เชื่อมโยงระบบงานสำคัญไว้ในที่เดียว สะดวก รวดเร็ว และใช้งานง่าย</p>
-      </section>
-
-      <section id="services" class="services" aria-label="ระบบบริการดิจิทัลทั้งสามระบบ">
-        <!-- CARD 1: edit href below to change the destination -->
-        <a class="service-card blue" href="https://alien-worker.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="เปิดระบบรายงานและติดตามเงินกองทุนแรงงานต่างด้าว ในแท็บใหม่">
-          <div class="card-top"><span class="index">01</span><span class="arrow-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 17 10-10M8 7h9v9"/></svg></span></div>
-          <img class="illustration" src="assets/icon-fund.svg" width="320" height="220" alt="" loading="eager">
-          <h2>ระบบรายงานและติดตาม<br>เงินกองทุนแรงงานต่างด้าว</h2>
-          <span class="underline" aria-hidden="true"></span>
-          <p>รายงานข้อมูล ติดตามความเคลื่อนไหว<br>และตรวจสอบสถานะเงินกองทุน</p>
-          <span class="cta">เข้าสู่ระบบ <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="m9 5 7 7-7 7"/></svg></span>
-        </a>
-
-        <!-- CARD 2 -->
-        <a class="service-card green" href="https://e-document-indol.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="เปิดระบบจัดเก็บเอกสารของโกดัง ในแท็บใหม่">
-          <div class="card-top"><span class="index">02</span><span class="arrow-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 17 10-10M8 7h9v9"/></svg></span></div>
-          <img class="illustration" src="assets/icon-warehouse.svg" width="320" height="220" alt="" loading="eager">
-          <h2>ระบบจัดเก็บเอกสาร<br>ของโกดัง</h2>
-          <span class="underline" aria-hidden="true"></span>
-          <p>จัดเก็บ ค้นหา และบริหารจัดการ<br>เอกสารภายในโกดังอย่างเป็นระบบ</p>
-          <span class="cta">เข้าสู่ระบบ <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="m9 5 7 7-7 7"/></svg></span>
-        </a>
-
-        <!-- CARD 3 -->
-        <a class="service-card orange" href="https://equipment-seven.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="เปิดระบบเบิกพัสดุของสำนักบริหารแรงงานต่างด้าว ในแท็บใหม่">
-          <div class="card-top"><span class="index">03</span><span class="arrow-circle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 17 10-10M8 7h9v9"/></svg></span></div>
-          <img class="illustration" src="assets/icon-supplies.svg" width="320" height="220" alt="" loading="eager">
-          <h2>ระบบเบิกพัสดุของ<br>สำนักบริหารแรงงานต่างด้าว</h2>
-          <span class="underline" aria-hidden="true"></span>
-          <p>ขอเบิก ตรวจสอบ และติดตามสถานะ<br>การเบิกพัสดุของสำนักฯ</p>
-          <span class="cta">เข้าสู่ระบบ <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="m9 5 7 7-7 7"/></svg></span>
-        </a>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-bar">
-        <div class="footer-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M2 20h20M9 17v3m6-3v3"/></svg>
-          <span>พัฒนาระบบโดย <strong>สำนักบริหารแรงงานต่างด้าว กรมการจัดหางาน</strong></span>
-        </div>
-        <div class="footer-item mail">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="4.8" width="18.4" height="14.5" rx="2"/><path d="m3.4 6 8.6 7 8.6-7"/></svg>
-          <span>ติดต่อสอบถาม: <a href="mailto:eworkpermit@doe.go.th">eworkpermit@doe.go.th</a></span>
-        </div>
-      </div>
-      <div class="copyright">ข้อมูลมีลิขสิทธิ์ ห้ามเผยแพร่ต่อหรือทำซ้ำโดยไม่ได้รับอนุญาต ตามพระราชบัญญัติลิขสิทธิ์ พ.ศ. 2537</div>
-    </footer>
-  </div>
+<a class="skip" href="#services">ข้ามไปยังระบบบริการ</a>
+<div class="page">
+<header class="topbar">
+  <div class="identity"><img src="assets/department-emblem.png" width="85" height="85" alt="ตรากรมการจัดหางานจากภาพต้นแบบ"><div><h2>สำนักบริหารแรงงานต่างด้าว</h2><div class="thai-sub">กรมการจัดหางาน · กระทรวงแรงงาน</div><div class="eng">DEPARTMENT OF EMPLOYMENT</div></div></div>
+  <div class="top-note">DIGITAL GOVERNMENT SERVICES<small>SMART · EASY · CONNECTED</small></div>
+</header>
+<main>
+  <section class="hero" aria-label="หน้าแรก"><h1>Digital Service<span>Dashboard</span></h1><div class="divider" aria-hidden="true"></div><p class="subtitle">ศูนย์รวมระบบบริการดิจิทัล สำนักบริหารแรงงานต่างด้าว</p><p class="summary">เชื่อมโยงระบบงานสำคัญไว้ในที่เดียว สะดวก รวดเร็ว และใช้งานง่าย</p></section>
+  <section class="services" id="services" aria-label="เว็บไซต์ระบบบริการทั้งสาม">
+    <a class="service-card blue" href="https://alien-worker.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="ระบบรายงานและติดตามเงินกองทุนแรงงานต่างด้าว เปิดในแท็บใหม่">
+      <div class="card-top"><span class="card-number">01</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span></div>
+      <div class="art"><img src="assets/illustration-fund.png" width="293" height="193" alt="" aria-hidden="true"></div>
+      <div class="card-copy"><h2>ระบบรายงานและติดตาม<br>เงินกองทุนแรงงานต่างด้าว</h2><span class="rule" aria-hidden="true"></span><p>ตรวจสอบ ติดตาม และรายงานการรับ–จ่ายเงินกองทุนแรงงานต่างด้าว อย่างครบถ้วนและโปร่งใส</p></div>
+      <svg class="wave" viewBox="0 0 400 108" preserveAspectRatio="none" aria-hidden="true"><path d="M0 25C71 46 108 76 193 70S328 34 400 15V108H0Z"/><path d="M0 54C102 33 128 97 231 70S318 44 400 52V108H0Z"/><path d="M0 78C88 49 162 102 237 82S343 53 400 84V108H0Z"/><path d="M0 93C62 76 143 107 231 97S339 86 400 95V108H0Z"/><path d="M0 46C73 57 104 87 187 83S319 43 400 35"/></svg>
+      <svg class="wave-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 40V28h8v12M17 40V19h8v21M30 40V8h8v32M2 42h42"/></svg>
+    </a>
+    <a class="service-card green" href="https://e-document-indol.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="ระบบจัดเก็บเอกสารของโกดัง เปิดในแท็บใหม่">
+      <div class="card-top"><span class="card-number">02</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span></div>
+      <div class="art"><img src="assets/illustration-warehouse.png" width="255" height="183" alt="" aria-hidden="true"></div>
+      <div class="card-copy"><h2>ระบบจัดเก็บเอกสาร<br>ของโกดัง</h2><span class="rule" aria-hidden="true"></span><p>จัดเก็บ ค้นหา และบริหารจัดการเอกสารภายในโกดังอย่างเป็นระบบ รวดเร็ว และปลอดภัย</p></div>
+      <svg class="wave" viewBox="0 0 400 108" preserveAspectRatio="none" aria-hidden="true"><path d="M0 25C71 46 108 76 193 70S328 34 400 15V108H0Z"/><path d="M0 54C102 33 128 97 231 70S318 44 400 52V108H0Z"/><path d="M0 78C88 49 162 102 237 82S343 53 400 84V108H0Z"/><path d="M0 93C62 76 143 107 231 97S339 86 400 95V108H0Z"/><path d="M0 46C73 57 104 87 187 83S319 43 400 35"/></svg>
+      <svg class="wave-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 6h20l7 7v29H11zM31 6v8h7M17 21h15M17 27h15M17 33h10"/></svg>
+    </a>
+    <a class="service-card orange" href="https://equipment-seven.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="ระบบเบิกพัสดุของสำนักบริหารแรงงานต่างด้าว เปิดในแท็บใหม่">
+      <div class="card-top"><span class="card-number">03</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span></div>
+      <div class="art"><img src="assets/illustration-supplies.png" width="279" height="184" alt="" aria-hidden="true"></div>
+      <div class="card-copy"><h2>ระบบเบิกพัสดุของ<br>สำนักบริหารแรงงานต่างด้าว</h2><span class="rule" aria-hidden="true"></span><p>ขอเบิก ตรวจสอบ และติดตามสถานะการเบิกพัสดุของสำนักบริหารแรงงานต่างด้าว</p></div>
+      <svg class="wave" viewBox="0 0 400 108" preserveAspectRatio="none" aria-hidden="true"><path d="M0 25C71 46 108 76 193 70S328 34 400 15V108H0Z"/><path d="M0 54C102 33 128 97 231 70S318 44 400 52V108H0Z"/><path d="M0 78C88 49 162 102 237 82S343 53 400 84V108H0Z"/><path d="M0 93C62 76 143 107 231 97S339 86 400 95V108H0Z"/><path d="M0 46C73 57 104 87 187 83S319 43 400 35"/></svg>
+      <svg class="wave-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M9 16 24 8l15 8-15 8zM9 16v17l15 8V24M39 16v17l-15 8"/></svg>
+    </a>
+  </section>
+</main>
+<footer class="footer"><div class="footer-panel"><div class="foot-group"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="15" rx="2"/><path d="M1 21h22M8 18v3m8-3v3"/></svg><span>พัฒนาระบบโดย <strong>สำนักบริหารแรงงานต่างด้าว กรมการจัดหางาน</strong></span></div><div class="foot-group mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg><span>ติดต่อสอบถาม: <a href="mailto:eworkpermit@doe.go.th">eworkpermit@doe.go.th</a></span></div></div><div class="legal">ข้อมูลมีลิขสิทธิ์และห้ามเผยแพร่ต่อหรือทำซ้ำโดยไม่ได้รับอนุญาต ตามพระราชบัญญัติลิขสิทธิ์ พ.ศ. 2537</div></footer>
+</div>
 </body>
 </html>
