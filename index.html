@@ -7,13 +7,16 @@
 <meta name="description" content="ศูนย์รวมระบบบริการดิจิทัล สำนักบริหารแรงงานต่างด้าว กรมการจัดหางาน">
 <title>Digital Service Dashboard | สำนักบริหารแรงงานต่างด้าว</title>
 <link rel="icon" href="assets/department-emblem.png" type="image/png">
-<link rel="preload" as="image" href="assets/campus-background.jpg">
+<link rel="preload" as="image" href="assets/campus-background-latest.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{font-family:'Noto Sans Thai','Leelawadee UI',Tahoma,'Segoe UI',sans-serif;color:#0c2850;font-synthesis:none;-webkit-font-smoothing:antialiased}
+:root{font-family:'Prompt','Noto Sans Thai','Leelawadee UI',Tahoma,'Segoe UI',sans-serif;color:#0c2850;font-synthesis:none;-webkit-font-smoothing:antialiased}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;min-width:320px;min-height:100vh;min-height:100svh;background:#d6ebfa}
-body::before{content:"";position:fixed;inset:0;z-index:-2;background-image:linear-gradient(180deg,rgba(237,247,255,.28),rgba(237,246,255,.07) 36%,rgba(235,248,255,.12) 65%,rgba(227,241,251,.32)),url('assets/campus-background.jpg');background-size:cover;background-position:center;pointer-events:none}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background-image:linear-gradient(180deg,rgba(237,247,255,.28),rgba(237,246,255,.07) 36%,rgba(235,248,255,.12) 65%,rgba(227,241,251,.32)),url('assets/campus-background-latest.png');background-size:cover;background-position:center;pointer-events:none}
 body::after{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 25%,rgba(255,255,255,.75) 0%,rgba(255,255,255,.52) 26%,transparent 61%);pointer-events:none}
 a{color:inherit;text-decoration:none}
 .page{min-height:100vh;min-height:100svh;width:100%;max-width:1650px;margin:auto;display:flex;flex-direction:column;padding:clamp(18px,2vw,28px) clamp(20px,4vw,70px) 17px}
@@ -21,16 +24,16 @@ a{color:inherit;text-decoration:none}
 .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
 .identity{display:flex;align-items:center;gap:15px}
 .identity img{width:clamp(61px,6vw,85px);height:clamp(61px,6vw,85px);object-fit:contain;filter:drop-shadow(0 6px 9px #16416b20)}
-.identity h2{font-size:clamp(18px,1.8vw,26px);line-height:1.25;letter-spacing:-.045em;margin:0;font-weight:850}
+.identity h2{font-size:clamp(18px,1.8vw,26px);line-height:1.25;letter-spacing:-.04em;margin:0;font-weight:800}
 .identity .thai-sub{font-size:clamp(11px,1.05vw,15px);font-weight:600;color:#274a6b;margin-top:2px}
 .identity .eng{font-family:Arial,sans-serif;color:#4b6889;letter-spacing:.1em;font-size:10px;font-weight:700;margin-top:4px}
 .top-note{text-align:right;font-family:Arial,sans-serif;font-size:11px;font-weight:750;letter-spacing:.24em;line-height:1.7;color:#21456f;margin-top:5px}
 .top-note small{font-size:10px;font-weight:600;letter-spacing:.15em;display:block}.top-note:after{content:"";display:block;width:47px;height:3px;border-radius:3px;background:#d5a24b;margin:9px 0 0 auto}
 .hero{text-align:center;margin:clamp(13px,3.1vh,30px) auto 0;padding:0 10px;max-width:1100px;text-shadow:0 2px 14px #ffffffee}
-.hero h1{font-family:'Segoe UI',Arial,sans-serif;font-size:clamp(42px,5.05vw,76px);line-height:1.03;letter-spacing:-.058em;margin:0;font-weight:800;color:#082652}
-.hero h1 span{display:block;text-shadow:none;background:linear-gradient(110deg,#0655bb,#0876ec 49%,#074cad);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero h1{font-family:'Space Grotesk','Segoe UI',Arial,sans-serif;font-size:clamp(44px,5.2vw,78px);line-height:.98;letter-spacing:-.055em;margin:0;font-weight:700;color:#0a3b88;text-shadow:0 1px 0 #dbeeff,0 2px 0 #c7e1ff,0 3px 0 #a8cdfc,0 4px 0 #7cb2f5,0 5px 0 #528ee9,0 6px 12px rgba(14,84,168,.28)}
+.hero h1 span{display:block;color:#0d66e8;background:linear-gradient(180deg,#7cc0ff 0%,#2d8bff 34%,#0f63dc 58%,#0b4cb9 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 0 rgba(39,107,201,.28)) drop-shadow(0 10px 18px rgba(16,87,171,.14))}
 .hero .divider{height:4px;width:67px;border-radius:10px;background:#d8a13d;margin:14px auto 12px}
-.hero .subtitle{font-size:clamp(17px,1.65vw,23px);font-weight:800;letter-spacing:-.035em;margin:0}
+.hero .subtitle{font-size:clamp(17px,1.65vw,23px);font-weight:700;letter-spacing:-.025em;margin:0}
 .hero .summary{font-size:clamp(11px,1.05vw,14px);color:#385b78;font-weight:600;margin:3px 0 0}
 .services{width:min(100%,1330px);margin:clamp(22px,3.5vh,38px) auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(17px,1.6vw,26px);align-items:stretch}
 .service-card{--tone:#0c65c7;--tone-deep:#073a8c;--panel-light:#e5f3ff;--wave-a:#aad9ff;--wave-b:#67b7fa;--wave-c:#248cf0;--wave-d:#0273dc;position:relative;isolation:isolate;min-width:0;display:flex;flex-direction:column;overflow:hidden;padding:15px clamp(19px,2.1vw,30px) 93px;min-height:clamp(417px,50vh,488px);border-radius:25px;background:linear-gradient(156deg,rgba(255,255,255,.95) 0%,rgba(242,249,255,.91) 65%,rgba(228,244,255,.93) 100%);border:1px solid rgba(255,255,255,.96);box-shadow:0 17px 31px #0e46733f,0 2px 10px #1f66821c,inset 0 1px 4px #fff;outline-offset:4px;backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%);transition:transform .25s,box-shadow .25s}
